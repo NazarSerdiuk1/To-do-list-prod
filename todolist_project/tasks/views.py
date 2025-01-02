@@ -5,7 +5,7 @@ from .models import Task, Tag
 from .forms import TaskForm, TagForm
 
 
-# Домашняя страница со списком задач
+# Homepage with list of tasks
 class TaskListView(ListView):
     model = Task
     template_name = "tasks/home.html"
@@ -30,7 +30,7 @@ class TaskCreateView(CreateView):
         return reverse_lazy("tasks:home")
 
 
-# Редактирование задачи
+# Modify task
 class TaskUpdateView(UpdateView):
     model = Task
     form_class = TaskForm
@@ -45,7 +45,7 @@ class TaskUpdateView(UpdateView):
         return reverse_lazy("tasks:home")
 
 
-# Удаление задачи
+# Delete task
 class TaskDeleteView(DeleteView):
     model = Task
     template_name = "tasks/confirm_delete.html"
@@ -54,7 +54,7 @@ class TaskDeleteView(DeleteView):
         return reverse_lazy("tasks:home")
 
 
-# Изменение статуса задачи (выполнено/не выполнено)
+# Changing the task status (completed/uncompleted)
 def toggle_task_status(request, pk):
     task = get_object_or_404(Task, pk=pk)
     task.is_done = not task.is_done
@@ -62,14 +62,14 @@ def toggle_task_status(request, pk):
     return redirect("tasks:home")
 
 
-# Страница со списком тегов
+# Tag list
 class TagListView(ListView):
     model = Tag
     template_name = "tasks/tag_list.html"
     context_object_name = "tags"
 
 
-# Создание нового тега
+# Create tag
 class TagCreateView(CreateView):
     model = Tag
     form_class = TagForm
@@ -84,7 +84,7 @@ class TagCreateView(CreateView):
         return reverse_lazy("tasks:tag_list")
 
 
-# Редактирование тега
+# Modify tag
 class TagUpdateView(UpdateView):
     model = Tag
     form_class = TagForm
@@ -99,7 +99,7 @@ class TagUpdateView(UpdateView):
         return reverse_lazy("tasks:tag_list")
 
 
-# Удаление тега
+# Delete tag
 class TagDeleteView(DeleteView):
     model = Tag
     template_name = "tasks/confirm_delete_tag.html"
